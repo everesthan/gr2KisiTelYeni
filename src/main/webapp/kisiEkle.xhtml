@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions" >
+
+    <body>
+
+        <ui:composition template="./anaTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:form id="kisiEkleForm">
+                    <p:panel header="Kişi Ekle">
+                        <p:messages/>
+                        <p:panelGrid columns="3">
+                            
+                            <p:outputLabel value="Ad:"/>
+                            <p:inputText  id="ad"
+                                          label="Ad"
+                                          value="#{kisiBean.kisi.ad}"
+                                          required="true"
+                                          requiredMessage="Ad alanı boş geçilemez!" >
+                                <p:ajax event="keyup" update="adMsg"/>
+                            </p:inputText>
+                            
+                            <p:message for="ad" id="adMsg"/>
+                            
+                            
+                            
+                            <p:outputLabel value="Soyad:"/>
+                            <p:inputText  id="soyad"
+                                          label="Soyad"
+                                          value="#{kisiBean.kisi.soyad}"
+                                          required="true"
+                                          requiredMessage="Soyad alanı boş geçilemez!" >
+                                <p:ajax event="keyup" update="soyadMsg"/>
+                                <f:validateLength minimum="4"/>
+                            </p:inputText>
+                            
+                            <p:message for="soyad" id="soyadMsg"/>
+                            
+                            
+                            
+                            <p:outputLabel value="Doğum Tarihi(DD/MM/YYYY):"/>
+                            <p:calendar id="dogtar" 
+                                        value="#{kisiBean.kisi.dogtar}"
+                                        pattern="dd/MM/yyyy"/>
+                            
+                            <p:message for="dogtar" id="dogTarMsg"/>
+                            
+                            
+                             <p:outputLabel value="Maaş: "/>
+                             <pe:inputNumber id="maas"
+                                             label="Maaş"
+                                             value="#{kisiBean.kisi.maas}"/>
+                        
+                            
+                            <p:message for="maas" id="maasMsg"/>
+                            
+                            
+                            <p:outputLabel value="Telefon Türü(Ev girin.): "/>
+                            
+                            <p:selectOneMenu id="evtur"
+                                             label="Telefon Türü-Ev"
+                                             value="#{kisiBean.evTel.tur}">
+                                <f:selectItem itemLabel="Ev" itemValue="Ev"/>
+                                <f:selectItem itemLabel="Cep" itemValue="Cep"/>
+                            </p:selectOneMenu>
+                            
+                            <p:message for="evtur" id="evturMsg"/>
+                            
+                            
+                            <p:outputLabel value="Ev Telefonu:"/>
+                            <p:inputText  id="evtel"
+                                          label="Ev Telefonu"
+                                          value="#{kisiBean.evTel.telno}"/>
+                            
+                            <p:message for="evtel" id="evtelMsg"/>
+                            
+                            
+                            
+                            <p:outputLabel value="Telefon Türü(Cep girin.): "/>
+                            <p:selectOneMenu id="ceptur"
+                                             label="Telefon Türü-Ev"
+                                             value="#{kisiBean.cepTel.tur}">
+                                <f:selectItem itemLabel="Ev" itemValue="Ev"/>
+                                <f:selectItem itemLabel="Cep" itemValue="Cep"/>
+                            </p:selectOneMenu>
+                            
+                            <p:message for="ceptur" id="cepturMsg"/>
+                            
+                            
+                            <p:outputLabel value="Cep Telefonu:"/>
+                            <p:inputText  id="ceptel"
+                                          label="Cep Telefonu"
+                                          value="#{kisiBean.cepTel.telno}"/>
+                            
+                            <p:message for="ceptel" id="ceptelMsg"/> 
+                            
+                            
+                            <p:outputLabel value=""/>
+                            <p:commandButton value="Ekle"
+                                             action="#{kisiBean.kisiEkle()}"
+                                             update="kisiEkleForm"/>
+                            <p:outputLabel value=""/>
+                            
+                            
+                        </p:panelGrid>
+   
+                    </p:panel>
+                    
+                </h:form>
+                    
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
