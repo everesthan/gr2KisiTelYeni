@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import tr.gov.ptt.gr2kisitelyeni.entity.Kisi;
 import tr.gov.ptt.gr2kisitelyeni.entity.Telefon;
 import tr.gov.ptt.gr2kisitelyeni.service.KisiService;
+import tr.gov.ptt.gr2kisitelyeni.util.JSFUtil;
 
 @ManagedBean
 @RequestScoped
@@ -21,11 +22,13 @@ public class KisiBean {
     private KisiService kisiService;
     private Telefon evTel ;
     private Telefon cepTel;
+    private List<Kisi> kisiListe;
 
     public KisiBean() {
       kisi= new Kisi();
       evTel = new Telefon();
       cepTel = new Telefon();
+      kisiListe = new ArrayList<Kisi>();
     }
 
     public Kisi getKisi() {
@@ -51,6 +54,15 @@ public class KisiBean {
     public void setCepTel(Telefon cepTel) {
         this.cepTel = cepTel;
     }
+
+    public List<Kisi> getKisiListe() {
+        kisiListe = kisiService.kisiListele();
+        return kisiListe;
+    }
+
+    public void setKisiListe(List<Kisi> kisiListe) {
+        this.kisiListe = kisiListe;
+    }
     
     
     public String kisiEkle(){
@@ -65,12 +77,12 @@ public class KisiBean {
         cepTel.setKisi(kisi);
         kisiService.kisiEkle(kisi);
         
-         FacesContext.getCurrentInstance().
-                                addMessage(null, new FacesMessage(
-                            FacesMessage.SEVERITY_INFO, "Kişi eklendi","Kişi eklendi"));
-            FacesContext.getCurrentInstance().getExternalContext()
-                    .getFlash().setKeepMessages(true);
+         JSFUtil.mesajekle("Kişi Eklendi.");
         return "kisiListele.xhtml?faces-redirect=true";
+    }
+    
+    public String listele(){
+         return "kisiListele.xhtml?faces-redirect=true";
     }
     
 }

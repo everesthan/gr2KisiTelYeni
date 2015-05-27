@@ -1,14 +1,53 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+
 
     <body>
 
         <ui:composition template="./anaTemplate.xhtml">
 
             <ui:define name="content">
-              sadasda
+                <p:messages/>
+                <h:form>
+
+                    <p:dataTable id="kisiTable"
+                                 var="kisi" 
+                                 value="#{kisiBean.kisiListe}"
+                                 rows="3"
+                                 paginator="true"
+                                 rowsPerPageTemplate="3,6,9">
+
+                        <f:facet name="header">
+                            Kişi Listesi          
+                        </f:facet>
+
+                        <p:column headerText="NO">
+                            <h:outputText value="#{kisi.no}" />
+                        </p:column>
+
+                        <p:column headerText="AD">
+                            <h:outputText value="#{kisi.ad}" />
+                        </p:column>
+
+                        <p:column headerText="SOYAD">
+                            <h:outputText value="#{kisi.soyad}" />
+                        </p:column>
+                        <f:facet name="footer">
+                            Toplam Kayıt Sayısı:#{fn:length(kisiBean.kisiListe)}          
+                        </f:facet>
+
+
+                    </p:dataTable>
+                    <p:commandButton value="Excel" ajax="false">
+                        <p:dataExporter type="xls" target="kisiTable" fileName="Kisiler"/>
+                    </p:commandButton>
+                </h:form>
             </ui:define>
 
         </ui:composition>
